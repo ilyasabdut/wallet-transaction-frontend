@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ModalTransactionForm from '../components/modal/ModalTransaction'; // Adjust the import path as needed
+import ModalTransferForm from '../components/modal/ModalTransfer'; 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Transaction = () => {
+const Transfer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,15 +23,14 @@ const Transaction = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    // Navigate to a different route or use state to remember the route
-    navigate('/'); // Example: Navigate back to home or any other route
+    navigate('/');
   };
 
   return (
     <div>
-      <h1>Transaction Page</h1>
+      <h1>Transfer Page</h1>
       <button onClick={openModal}>Open Form</button>
-      <ModalTransactionForm
+      <ModalTransferForm
         isOpen={isModalOpen}
         onRequestClose={closeModal}
       />
@@ -39,4 +38,4 @@ const Transaction = () => {
   );
 };
 
-export default Transaction;
+export default Transfer;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import Transaction from './pages/Transaction';
+import Transfer from './pages/Transfer';
+import Topup from './pages/Topup';
 
 // Example pages
 
@@ -11,12 +12,14 @@ const App = () => {
       <nav>
         <ul>
           <li><Link to="/">Dashboard</Link></li>
-          <Link to={{ pathname: "/transaction", state: { openModal: true } }}>Transaction</Link>
+          <li><Link to={{ pathname: "/transfer", state: { openModal: true } }}>Transfer</Link></li>
+          <Link to={{ pathname: "/topup", state: { openModal: true } }}>Topup</Link>
         </ul>
       </nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/transaction" element={<Transaction />} />
+        <Route path="/Transfer" element={<Transfer />} />
+        <Route path="/Topup" element={<Topup />} />
       </Routes>
     </Router>
   );

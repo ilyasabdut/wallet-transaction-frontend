@@ -22,7 +22,7 @@ ChartJS.register(
 const BarChartTransactions = ({ data }) => {
   const { debit, credit } = data;
 
-  const labels = ['Transactions'];
+  const labels = ['Transfer'];
   const debitData = [Math.abs(debit.total_debit)];
   const creditData = [credit.total_credit];
 

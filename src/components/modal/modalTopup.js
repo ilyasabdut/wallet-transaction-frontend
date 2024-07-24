@@ -3,21 +3,19 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Ensure accessibility
 
-const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
-  const [isUsernameValid, setIsUsernameValid] = useState(false);
-  const [username, setUsername] = useState('');
+const ModalTopupForm = ({ isOpen, onRequestClose }) => {
   const [amount, setAmount] = useState('');
   const [currencyId, setCurrencyId] = useState('');
   const [notes, setNotes] = useState('');
   const [currencies, setCurrencies] = useState([]);
-  const [usernameFrom] = useState('john_doe'); // Replace with actual username or add a field to input it
+  const [username] = useState('john_doe'); 
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch currencies on component mount
   useEffect(() => {
     const fetchCurrencies = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/transactions/masterdata/currency`);
+        const response = await fetch(`${apiUrl}/api/masterdata/currencies`);
         const result = await response.json();
         if (response.ok) {
           setCurrencies(result.data); // Adjust according to your response structure
@@ -32,36 +30,12 @@ const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
     fetchCurrencies();
   }, [apiUrl]);
 
-  // Handle username validation
-  const handleUsernameCheck = async () => {
-    try {
-      const response = await fetch(`${apiUrl}/api/users/${username}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setIsUsernameValid(true);
-      } else {
-        setIsUsernameValid(false);
-        alert('Username does not exist');
-      }
-    } catch (error) {
-      console.error('Error checking username:', error);
-      alert('Error checking username. Please try again.');
-    }
-  };
-
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const requestBody = {
-      username_from: usernameFrom,
+      username_from: null,
       username_to: username,
       currency_id: Number(currencyId),
       amount: parseFloat(amount),
@@ -70,7 +44,7 @@ const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
     };
 
     try {
-      const response = await fetch(`${apiUrl}/api/transactions/transfer`, {
+      const response = await fetch(`${apiUrl}/api/transactions/topup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,28 +85,12 @@ const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
         },
       }}
     >
-      <h2>Transfer</h2>
+      <h2>Topup</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Send To"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button
-          type="button"
-          onClick={handleUsernameCheck}
-          disabled={!username}
-        >
-          Check
-        </button>
-        <br />
         <select
           name="currency"
           value={currencyId}
           onChange={(e) => setCurrencyId(e.target.value)}
-          disabled={!isUsernameValid}
         >
           <option value="">Select Currency</option>
           {currencies.map((currency) => (
@@ -150,7 +108,6 @@ const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
           step="any"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          disabled={!isUsernameValid}
         />
         <br />
         <textarea
@@ -158,14 +115,13 @@ const ModalTransactionForm = ({ isOpen, onRequestClose }) => {
           placeholder="Notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          disabled={!isUsernameValid}
         />
         <br />
-        <button type="submit" disabled={!isUsernameValid}>Submit</button>
+        <button type="submit">Submit</button>
       </form>
       <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
 };
 
-export default ModalTransactionForm;
+export default ModalTopupForm;
