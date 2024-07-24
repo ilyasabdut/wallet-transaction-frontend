@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
+import useCurrencyData from '../../hooks/useCurrencyData';
 
 Modal.setAppElement('#root'); // Ensure accessibility
 
@@ -7,28 +8,12 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
   const [amount, setAmount] = useState('');
   const [currencyId, setCurrencyId] = useState('');
   const [notes, setNotes] = useState('');
-  const [currencies, setCurrencies] = useState([]);
-  const [username] = useState('john_doe'); 
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
-
-  // Fetch currencies on component mount
-  useEffect(() => {
-    const fetchCurrencies = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/api/masterdata/currencies`);
-        const result = await response.json();
-        if (response.ok) {
-          setCurrencies(result.data); // Adjust according to your response structure
-        } else {
-          console.error('Error fetching currencies:', result);
-        }
-      } catch (error) {
-        console.error('Network error fetching currencies:', error);
-      }
-    };
-
-    fetchCurrencies();
-  }, [apiUrl]);
+  const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
+  //from local storage
+  const username = localStorage.getItem('username');
+  if (currencyLoading) return <p>Loading...</p>;
+  if (currencyError) return <p>Error: {currencyError}</p>;
 
   // Handle form submission
   const handleSubmit = async (event) => {
@@ -93,7 +78,7 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
           onChange={(e) => setCurrencyId(e.target.value)}
         >
           <option value="">Select Currency</option>
-          {currencies.map((currency) => (
+          {currencyData.map((currency) => (
             <option key={currency.id} value={currency.id}>
               {currency.name}
             </option>

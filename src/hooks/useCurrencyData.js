@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const useBalanceData = (apiUrl) => {
-  const [balanceData, setBalanceData] = useState([]);
+const useCurrencyData = (apiUrl) => {
+  const [currencyData, setCurrencyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -9,9 +9,7 @@ const useBalanceData = (apiUrl) => {
     const fetchBalance = async () => {
       try {
         const accessToken = localStorage.getItem('access_token');
-        const username = localStorage.getItem('username');
-
-        const response = await fetch(`${apiUrl}/api/transactions/balance/${username}`, {
+        const response = await fetch(`${apiUrl}/api/masterdata/currencies`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -19,7 +17,7 @@ const useBalanceData = (apiUrl) => {
           },
         });
         const data = await response.json();
-        setBalanceData(data.data);
+        setCurrencyData(data.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -30,7 +28,7 @@ const useBalanceData = (apiUrl) => {
     fetchBalance();
   }, [apiUrl]);
 
-  return { balanceData, loading, error };
+  return { currencyData, loading, error };
 };
 
-export default useBalanceData;
+export default useCurrencyData;

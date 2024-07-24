@@ -1,17 +1,17 @@
 import React from 'react';
-import Widget from '../components/Widget'; // Assuming Widget is for balance
+import Widget from '../components/Widget'; 
 import useBalanceData from '../hooks/useBalanceData';
 import useTopUsersData from '../hooks/useTopUsersData';
 import useTopTransactionsData from '../hooks/useTopTransactionsData';
-import BarChart from '../components/BarChart'; // Assuming Table is a component to render tables
-import BarChartTransactions from '../components/BarChartTransactions'; // Assuming Table is a component to render tables
+import BarChart from '../components/BarChart'; 
+import BarChartTransactions from '../components/BarChartTransactions'; 
 
 const Dashboard = () => {
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { balanceData, loading: balanceLoading, error: balanceError } = useBalanceData(apiUrl);
   const { topUsersData, loading: usersLoading, error: usersError } = useTopUsersData(apiUrl);
-  const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl,'john_doe');
-
+  const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl);
+  const username = localStorage.getItem('username');
   // Handling loading and error states
   if (balanceLoading || usersLoading || transactionLoading) return <p>Loading...</p>;
   if (balanceError) return <p>Error: {balanceError}</p>;
@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <div style={appStyles.container}>
-
+      <h2>Hi, {username}</h2>
       <h2>Balance Overview</h2>
       <div style={appStyles.balanceSection}>
         {balanceData.map((item, index) => (
@@ -49,7 +49,6 @@ const Dashboard = () => {
         )}
       </div>
 
-        {/* TODO Add name later */}
       <h2>Top Transactions</h2>
       <div style={appStyles.topUsersSection}>
       {topTransactionsData.length > 0 ? (
@@ -73,10 +72,12 @@ const Dashboard = () => {
 
 const appStyles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    maxWidth: '100%',
+    margin: '0 auto',
     padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
   balanceSection: {
     display: 'flex',
@@ -97,29 +98,3 @@ const appStyles = {
 };
 
 export default Dashboard;
-
-// const appStyles = {
-//     container: {
-//       display: 'flex',
-//       flexDirection: 'column',
-//       gap: '20px',
-//       padding: '20px',
-//     },
-//     widgetsSection: {
-//       display: 'flex',
-//       flexWrap: 'wrap',
-//       gap: '10px',
-//     },
-//     topUsersSection: {
-//       display: 'grid',
-//       gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-//       gap: '20px',
-//       marginTop: '20px',
-//     },
-//     currencySection: {
-//       marginBottom: '20px',
-//       width: '100%',
-//       maxWidth: '600px',
-//     },
-//   };
-  

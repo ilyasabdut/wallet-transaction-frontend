@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 
-const useTopTransactionsData = (apiUrl,username) => {
+const useTopTransactionsData = (apiUrl) => {
   const [topTransactionsData, setTopTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTopTransactions = async (username) => {
+    const fetchTopTransactions = async () => {
       try {
+        const accessToken = localStorage.getItem('access_token');
+        const username = localStorage.getItem('username');
         const response = await fetch(`${apiUrl}/api/transactions/top-transactions/${username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
           },
         });
         const data = await response.json();
@@ -23,8 +26,8 @@ const useTopTransactionsData = (apiUrl,username) => {
       }
     };
 
-    fetchTopTransactions(username); // Assuming you have a username available
-  }, [apiUrl,username]);
+    fetchTopTransactions(); // Assuming you have a username available
+  }, [apiUrl]);
 
   return { topTransactionsData, loading, error };
 };
