@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import useCurrencyData from '../../hooks/useCurrencyData';
+import '../../styles/ModalForm.css';
 
 Modal.setAppElement('#root'); // Ensure accessibility
 
@@ -13,7 +14,9 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
   const [usernameFrom] = useState('john_doe'); 
-  
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+
   if (currencyLoading) return <p>Loading...</p>;
   if (currencyError) return <p>Error: {currencyError}</p>;
 
@@ -29,15 +32,21 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
         },
       });
 
+      const result = await response.json();
+
       if (response.ok) {
         setIsUsernameValid(true);
+        setMessage(result.message || 'Username exist');
+        setError('');
+
       } else {
         setIsUsernameValid(false);
-        alert('Username does not exist');
+        setMessage('');
+        setError(result.message || 'Username does not exist');
       }
     } catch (error) {
       console.error('Error checking username:', error);
-      alert('Error checking username. Please try again.');
+      setError('Error checking username. Please try again.');
     }
   };
 
@@ -67,14 +76,14 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
 
       if (response.ok) {
         console.log('Form submitted successfully:', result);
-        onRequestClose(); // Close the modal after successful submission
+        onRequestClose(); 
       } else {
         console.error('Error submitting form:', result);
-        alert(result.message);
+        setError(result.message || 'Error submitting form');
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Network error. Please try again.');
+      setError('Network error. Please try again');
     }
   };
 
@@ -83,21 +92,11 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Modal Transaction Form"
-      style={{
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          transform: 'translate(-50%, -50%)',
-          padding: '20px',
-          maxWidth: '500px', // Optional: limits modal width
-          width: '100%',
-        },
-      }}
+      className="modal-content"
+      overlayClassName="modal-overlay"
     >
       <h2>Transfer</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="modal-form">
         <input
           type="text"
           name="username"
@@ -109,10 +108,10 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
           type="button"
           onClick={handleUsernameCheck}
           disabled={!username}
+          className="check-button"
         >
           Check
         </button>
-        <br />
         <select
           name="currency"
           value={currencyId}
@@ -126,7 +125,6 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
             </option>
           ))}
         </select>
-        <br />
         <input
           type="number"
           name="amount"
@@ -137,7 +135,6 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
           onChange={(e) => setAmount(e.target.value)}
           disabled={!isUsernameValid}
         />
-        <br />
         <textarea
           name="notes"
           placeholder="Notes"
@@ -145,10 +142,13 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
           onChange={(e) => setNotes(e.target.value)}
           disabled={!isUsernameValid}
         />
-        <br />
-        <button type="submit" disabled={!isUsernameValid}>Submit</button>
+          {error && <p className="error">{error}</p>}
+          {message && <p className="message">{message}</p>}
+          <div className="button-group">
+            <button type="submit" disabled={!isUsernameValid}>Submit</button>
+            <button onClick={onRequestClose} className="close-button">Close</button>
+        </div>
       </form>
-      <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
 };

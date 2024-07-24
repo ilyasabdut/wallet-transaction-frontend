@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import useCurrencyData from '../../hooks/useCurrencyData';
+import '../../styles/ModalForm.css';
 
 Modal.setAppElement('#root'); // Ensure accessibility
 
@@ -10,8 +11,10 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
   const [notes, setNotes] = useState('');
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
-  //from local storage
+  const [error, setError] = useState('');
+//   const [message, setMessage] = useState('');
   const username = localStorage.getItem('username');
+  
   if (currencyLoading) return <p>Loading...</p>;
   if (currencyError) return <p>Error: {currencyError}</p>;
 
@@ -44,11 +47,11 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
         onRequestClose(); // Close the modal after successful submission
       } else {
         console.error('Error submitting form:', result);
-        alert(result.message);
+        setError(result.message || 'Error submitting form');
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Network error. Please try again.');
+      setError('Network error. Please try again');
     }
   };
 
@@ -57,21 +60,11 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Modal Transaction Form"
-      style={{
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          transform: 'translate(-50%, -50%)',
-          padding: '20px',
-          maxWidth: '500px', // Optional: limits modal width
-          width: '100%',
-        },
-      }}
+      className="modal-content"
+      overlayClassName="modal-overlay"
     >
       <h2>Topup</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="modal-form">
         <select
           name="currency"
           value={currencyId}
@@ -84,7 +77,6 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
             </option>
           ))}
         </select>
-        <br />
         <input
           type="number"
           name="amount"
@@ -94,17 +86,20 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <br />
         <textarea
           name="notes"
           placeholder="Notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
-        <br />
-        <button type="submit">Submit</button>
+          {error && <p className="error">{error}</p>}
+          {/* {message && <p className="message">{message}</p>} */}
+
+          <div className="button-group">
+            <button type="submit">Submit</button>
+            <button onClick={onRequestClose} className="close-button">Close</button>
+        </div>
       </form>
-      <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
 };

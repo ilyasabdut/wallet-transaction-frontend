@@ -1,21 +1,20 @@
+// components/LogoutButton.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LogoutButton = () => {
+const LogoutButton = ({ className }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove the access token from localStorage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('decoded'); // Optional: Remove other related items
-    localStorage.removeItem('username'); // Optional: Remove other related items
+    localStorage.removeItem('decoded');
+    localStorage.removeItem('username');
 
-    // Redirect to login page
     navigate('/login');
   };
 
   return (
-    <button onClick={handleLogout}>
+    <button onClick={handleLogout} className={className}>
       Logout
     </button>
   );

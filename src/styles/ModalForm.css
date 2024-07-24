@@ -1,0 +1,87 @@
+/* ModalTransferForm.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-form button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  padding: 10px 20px; /* Uniform padding for buttons */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensure buttons are the same width */
+}
+
+.modal-form .check-button {
+  background-color: #2196F3;
+  margin-bottom: 10px;
+
+}
+
+.modal-form .check-button:hover {
+  background-color: #0b7dda;
+}
+
+.modal-form .close-button {
+  background-color: #c10a20;
+  color: white;
+}
+
+.modal-form .close-button:hover {
+  background-color: #a80e18;
+}
+
+.modal-form .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Space between buttons */
+}
+
+.modal-form .error {
+  color: red;
+  margin-bottom: 10px; /* Add margin to separate from other elements */
+}
+
+.modal-form .message {
+  color: green;
+}
