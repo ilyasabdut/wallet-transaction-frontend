@@ -1,0 +1,76 @@
+/* AppStyles.css */
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .balance-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .top-users-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .currency-section {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+  }
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap; 
+  }
+  
+  .button-group .button {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .button-group .button button {
+    flex: none; /* Prevent buttons from taking up equal space */
+    background-color: #4CAF50;
+    color: white;
+    font-size: 12px;
+    padding: 10px 20px; /* Uniform padding for buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto; /* Ensure buttons are smaller */
+  }
+  
+  /* Specific Button Styles */
+  .transfer-button {
+    background-color: #c10a20;
+  }
+  
+  .topup-button {
+    background-color: #c10a20;
+  }
+  
+  .button-group .button button:hover {
+    background-color: #45a049; /* Darken button color on hover */
+  }
+  
+  .transfer-button:hover {
+    background-color: #a1091a;
+  }
+  
+  .topup-button:hover {
+    background-color: #a1091a;
+  }
+  

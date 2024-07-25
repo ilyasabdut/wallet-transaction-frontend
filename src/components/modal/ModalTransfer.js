@@ -13,17 +13,17 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
   const [notes, setNotes] = useState('');
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
-  const [usernameFrom] = useState('john_doe'); 
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
   if (currencyLoading) return <p>Loading...</p>;
   if (currencyError) return <p>Error: {currencyError}</p>;
 
+
   // Handle username validation
   const handleUsernameCheck = async () => {
     try {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = localStorage.getItem('access_token');      
       const response = await fetch(`${apiUrl}/api/users/${username}`, {
         method: 'GET',
         headers: {
@@ -53,6 +53,8 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const usernameFrom = localStorage.getItem('username');
+    const access_token = localStorage.getItem('access_token');
 
     const requestBody = {
       username_from: usernameFrom,
@@ -68,6 +70,7 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
         },
         body: JSON.stringify(requestBody),
       });
@@ -76,7 +79,9 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
 
       if (response.ok) {
         console.log('Form submitted successfully:', result);
-        onRequestClose(); 
+        window.location.reload();
+        //TODO use redux
+        // onRequestClose(); 
       } else {
         console.error('Error submitting form:', result);
         setError(result.message || 'Error submitting form');
@@ -86,6 +91,7 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
       setError('Network error. Please try again');
     }
   };
+  
 
   return (
     <Modal

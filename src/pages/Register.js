@@ -35,9 +35,9 @@ const RegisterPage = () => {
       const result = await response.json();
 
       if (response.ok) {
-        await navigate('/login');
+         navigate('/login');
       } else {
-        // Handle login error
+        // Handle register error
         setError(result.message || 'Register failed.');
       }
     } catch (error) {

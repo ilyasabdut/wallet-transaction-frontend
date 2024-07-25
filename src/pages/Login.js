@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (event) => {
@@ -18,7 +16,6 @@ const LoginPage = () => {
     }
 
     try {
-      // Replace this URL with your actual API endpoint
       const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
@@ -30,7 +27,6 @@ const LoginPage = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Handle successful login (e.g., redirect to dashboard)
         console.log('Login successful:', result);
         localStorage.setItem('access_token', result.data.access_token);
         const decoded = jwtDecode(result.data.access_token);
@@ -38,8 +34,7 @@ const LoginPage = () => {
         localStorage.setItem('username', decoded.username);
         localStorage.setItem('role', decoded.role);
 
-        // Redirect or set user state
-        await navigate('/');
+        window.location.reload();
       } else {
         setError(result.message || 'Login failed.');
       }

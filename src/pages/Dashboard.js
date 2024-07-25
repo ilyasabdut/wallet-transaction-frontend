@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Widget from '../components/Widget';
 import useBalanceData from '../hooks/useBalanceData';
 import useTopUsersData from '../hooks/useTopUsersData';
 import useTopTransactionsData from '../hooks/useTopTransactionsData';
 import BarChart from '../components/BarChart';
 import BarChartTransactions from '../components/BarChartTransactions';
-
+import ModalTransferForm from '../components/modal/ModalTransfer';
+import ModalTopup from '../components/modal/modalTopup';
+import '../styles/Dashboard.css';
 const Dashboard = () => {
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
     const { balanceData, loading: balanceLoading, error: balanceError } = useBalanceData(apiUrl);
     const { topUsersData, loading: usersLoading, error: usersError } = useTopUsersData(apiUrl);
     const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl);
-    
+
+    const [isModalOpenTransfer, setIsModalOpenTransfer] = useState(false);
+    const [isModalOpenTopup, setIsModalOpenTopup] = useState(false);
+
+    const openModalTransfer = () => setIsModalOpenTransfer(true);
+    const closeModalTransfer = () => {
+        setIsModalOpenTransfer(false);
+    };
+
+    const openModalTopup = () => setIsModalOpenTopup(true);
+    const closeModalTopup = () => {
+        setIsModalOpenTopup(false);
+    };
+
+    useEffect(() => {
+        console.log('masuk sini')
+    })
     //TODO what to do without this here?
     const username = localStorage.getItem('username');
     const role = localStorage.getItem('role');
@@ -22,27 +40,48 @@ const Dashboard = () => {
     if (transactionError) return <p>Error: {transactionError}</p>;
 
     return (
-        <div style={appStyles.container}>
+        <div className='container'>
             <h2>Hi, {username}</h2>
             <h2>Balance Overview</h2>
-            <div style={appStyles.balanceSection}>
+            <div className="button-group">
+                <div className='button'>
+                    <button onClick={openModalTransfer} className="transfer-button"
+                    >Transfer</button>
+                    <ModalTransferForm
+                        isOpen={isModalOpenTransfer}
+                        onRequestClose={closeModalTransfer}
+                    />
+                </div>
+                <div className='button'>
+                    <button onClick={openModalTopup} className="topup-button"
+                    >Topup</button>
+                    <ModalTopup
+                        isOpen={isModalOpenTopup}
+                        onRequestClose={closeModalTopup}
+                    />
+                </div>
+            </div>
+            <div className='balance-section'>
                 {balanceData.map((item, index) => (
                     <Widget
                         key={index}
                         title={item.currency}
-                        value={item.balance}
+                        value={parseFloat(item.balance)}
                     />
                 ))}
             </div>
 
             <h2>Top Transactions</h2>
-            <div style={appStyles.topUsersSection}>
-                {topTransactionsData.length > 0 && topTransactionsData.some(currencyData => currencyData.top_transactions.length > 0) ? (
+            <div className='top-users-section'>
+                {
+
+                topTransactionsData.length > 0 ? 
+                (
+
                     topTransactionsData.map((currencyData, index) => {
                         const { currency, top_transactions } = currencyData;
-
-                        return top_transactions.length > 0 ? (
-                            <div key={index} style={appStyles.currencySection}>
+                        return Object.keys(top_transactions).length > 0 ? (
+                            <div key={index} className='currency-section'>
                                 <h3>{currency}</h3>
                                 <BarChartTransactions data={top_transactions} />
                             </div>
@@ -50,18 +89,20 @@ const Dashboard = () => {
                     })
                 ) : (
                     <p>No transactions data available.</p>
-                )}      </div>
+                )
+                }      
+                </div>
 
             <div>
                 {role === 'Admin' && (
                     <>
                         <h2>Top Users By Total Debit</h2>
-                        <div style={appStyles.topUsersSection}>
+                        <div className='top-users-section'>
                             {topUsersData.length > 0 ? (
                                 topUsersData.map((currencyData, index) => {
                                     const { currency, top_users } = currencyData;
                                     return (
-                                        <div key={index} style={appStyles.currencySection}>
+                                        <div key={index} className='currency-section'>
                                             <h3>{currency}</h3>
                                             <BarChart data={top_users} />
                                         </div>
@@ -77,33 +118,6 @@ const Dashboard = () => {
 
         </div>
     );
-};
-
-const appStyles = {
-    container: {
-        maxWidth: '100%',
-        margin: '0 auto',
-        padding: '20px',
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    },
-    balanceSection: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '10px',
-    },
-    topUsersSection: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(600px, 1fr))',
-        gap: '20px',
-        marginTop: '20px',
-    },
-    currencySection: {
-        marginBottom: '20px',
-        width: '100%',
-        maxWidth: '600px',
-    },
 };
 
 export default Dashboard;

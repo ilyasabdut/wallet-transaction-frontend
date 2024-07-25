@@ -5,14 +5,13 @@ import '../../styles/ModalForm.css';
 
 Modal.setAppElement('#root'); // Ensure accessibility
 
-const ModalTopupForm = ({ isOpen, onRequestClose }) => {
+const ModalTopup = ({ isOpen, onRequestClose }) => {
   const [amount, setAmount] = useState('');
   const [currencyId, setCurrencyId] = useState('');
   const [notes, setNotes] = useState('');
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
   const [error, setError] = useState('');
-//   const [message, setMessage] = useState('');
   const username = localStorage.getItem('username');
   
   if (currencyLoading) return <p>Loading...</p>;
@@ -44,7 +43,9 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
 
       if (response.ok) {
         console.log('Form submitted successfully:', result);
-        onRequestClose(); // Close the modal after successful submission
+        //TODO use redux
+        window.location.reload();
+        onRequestClose();
       } else {
         console.error('Error submitting form:', result);
         setError(result.message || 'Error submitting form');
@@ -104,4 +105,4 @@ const ModalTopupForm = ({ isOpen, onRequestClose }) => {
   );
 };
 
-export default ModalTopupForm;
+export default ModalTopup;
