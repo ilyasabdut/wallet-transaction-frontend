@@ -106,6 +106,7 @@ const Dashboard = () => {
                 }
             </div>
 
+            <h2>List Transactions</h2>
             <TransactionTable
                 transactionData={transactionListData}
                 currentPage={currentPage}
