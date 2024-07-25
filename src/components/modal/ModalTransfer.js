@@ -38,11 +38,10 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
         setIsUsernameValid(true);
         setMessage(result.message || 'Username exist');
         setError('');
-
       } else {
         setIsUsernameValid(false);
-        setMessage('');
         setError(result.message || 'Username does not exist');
+        setMessage('');
       }
     } catch (error) {
       console.error('Error checking username:', error);
@@ -81,10 +80,10 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
         console.log('Form submitted successfully:', result);
         window.location.reload();
         //TODO use redux
-        // onRequestClose(); 
       } else {
         console.error('Error submitting form:', result);
         setError(result.message || 'Error submitting form');
+        setMessage('');
       }
     } catch (error) {
       console.error('Network error:', error);

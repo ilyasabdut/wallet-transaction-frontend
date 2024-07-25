@@ -1,0 +1,47 @@
+.table-container {
+    padding: 1rem;
+}
+
+.table-container table {
+    border-spacing: 0;
+    border: 1px solid black;
+}
+
+.table-container table tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-container table th,
+.table-container table td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.table-container table th:last-child,
+.table-container table td:last-child {
+    border-right: 0;
+}
+
+.table-container .search-container {
+    margin-bottom: 10px;
+}
+
+.table-container .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.table-container .page-size-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.table-container select {
+    margin-left: 5px;
+}

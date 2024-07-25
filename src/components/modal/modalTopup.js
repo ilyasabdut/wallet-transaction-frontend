@@ -31,10 +31,12 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
     };
 
     try {
+      const accessToken = localStorage.getItem('access_token');      
       const response = await fetch(`${apiUrl}/api/transactions/topup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(requestBody),
       });

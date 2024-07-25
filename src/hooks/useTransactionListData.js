@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const useBalanceData = (apiUrl) => {
-  const [balanceData, setBalanceData] = useState([]);
+const useTransactionListData = (apiUrl,currentPage, pageSize, search) => {
+  const [transactionListData, setTransactionListData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -11,7 +11,7 @@ const useBalanceData = (apiUrl) => {
         const accessToken = localStorage.getItem('access_token');
         const username = localStorage.getItem('username');
 
-        const response = await fetch(`${apiUrl}/api/transactions/balance?username=${username}`, {
+        const response = await fetch(`${apiUrl}/api/transactions/list-transaction?username=${username}&page=${currentPage}&pageSize=${pageSize}&search=${search}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ const useBalanceData = (apiUrl) => {
           },
         });
         const data = await response.json();
-        setBalanceData(data.data);
+        setTransactionListData(data.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,9 +28,9 @@ const useBalanceData = (apiUrl) => {
     };
 
     fetchBalance();
-  }, [apiUrl]);
+  }, [apiUrl,currentPage, pageSize, search]);
 
-  return { balanceData, loading, error };
+  return { transactionListData, loading, error };
 };
 
-export default useBalanceData;
+export default useTransactionListData;
