@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wallet-transaction/static/css/main.1260875f.css",
+    "main.js": "/wallet-transaction/static/js/main.74a6e378.js",
+    "static/js/453.661d973b.chunk.js": "/wallet-transaction/static/js/453.661d973b.chunk.js",
+    "index.html": "/wallet-transaction/index.html",
+    "main.1260875f.css.map": "/wallet-transaction/static/css/main.1260875f.css.map",
+    "main.74a6e378.js.map": "/wallet-transaction/static/js/main.74a6e378.js.map",
+    "453.661d973b.chunk.js.map": "/wallet-transaction/static/js/453.661d973b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1260875f.css",
+    "static/js/main.74a6e378.js"
+  ]
+}
