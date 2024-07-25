@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,6 +37,8 @@ const LoginPage = () => {
         localStorage.setItem('role', decoded.role);
 
         window.location.reload();
+        navigate('/dashboard');
+
       } else {
         setError(result.message || 'Login failed.');
       }
@@ -71,7 +75,7 @@ const LoginPage = () => {
         </div>
         {error && <p style={styles.error}>{error}</p>}
         <button type="submit" style={styles.button}>Login</button>
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>Don't have an account? <Link to="/register">Register</Link></p>
       </form>
     </div>
   );
