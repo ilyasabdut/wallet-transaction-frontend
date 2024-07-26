@@ -8,19 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
-
     steps:
-      - name: Print React App Backend URL ENV
-        run: echo ${{ env.REACT_APP_BACKEND_URL }}
-
-      - name: Print React App Backend URL VARS
-        run: echo ${{ vars.REACT_APP_BACKEND_URL }}
-
-      - name: Print React App Backend URL SECRET
-        run: echo ${{ secrets.REACT_APP_BACKEND_URL }}
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -43,6 +31,17 @@ jobs:
 
       - name: Build the React app
         run:  CI=false npm run build
+        env:
+          REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
+
+      - name: Print React App Backend URL ENV
+        run: echo ${{ env.REACT_APP_BACKEND_URL }}
+
+      - name: Print React App Backend URL VARS
+        run: echo ${{ vars.REACT_APP_BACKEND_URL }}
+
+      - name: Print React App Backend URL SECRET
+        run: echo ${{ secrets.REACT_APP_BACKEND_URL }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
