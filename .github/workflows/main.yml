@@ -41,8 +41,9 @@ jobs:
       - name: Print React App Backend URL SECRET
         run: echo ${{ secrets.REACT_APP_BACKEND_URL }}
 
-        - name: Print SECRET
-        run: echo ${{ secrets.GITHUB_TOKEN }}
+      - name: Print SECRET
+      run: echo ${{ secrets.GITHUB_TOKEN }}
+        
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
