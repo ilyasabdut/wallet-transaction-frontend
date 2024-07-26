@@ -1,29 +1,10 @@
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const BarChartTransactions = ({ data }) => {
   const { debit, credit } = data;
 
   const labels = ['Transfer'];
-  const debitData = [Math.abs(debit.total_debit)];
+  const debitData = [-Math.abs(debit.total_debit)];
   const creditData = [credit.total_credit];
 
   const chartData = {
@@ -44,6 +25,12 @@ const BarChartTransactions = ({ data }) => {
 
   const options = {
     responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true, 
+        min: Math.min(-Math.abs(debit.total_debit), 0),
+      },
+    },
     plugins: {
       legend: {
         position: 'top',

@@ -8,16 +8,9 @@ import './App.css';
 
 const App = () => {
   const accessToken = localStorage.getItem('access_token');
-  const basename = process.env.NODE_ENV === 'production' ? '/wallet-transaction-frontend' : '/';
-  console.log(basename);
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.REACT_APP_BACKEND_URL);
 
   return (
-    // <Router basename={basename}>
     <Router>
-
-    {/* Conditionally render based on accessToken */}
       {!accessToken ? (
         <Routes>
           <Route path="/login" element={<Login />} />
