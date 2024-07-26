@@ -13,6 +13,7 @@ import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
+    console.log(apiUrl);
     const { balanceData, loading: balanceLoading, error: balanceError } = useBalanceData(apiUrl);
     const { topUsersData, loading: usersLoading, error: usersError } = useTopUsersData(apiUrl);
     const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl);
