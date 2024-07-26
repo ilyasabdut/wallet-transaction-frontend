@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import LogoutButton from './components/LogoutButton';
 import './App.css';
+import logo from "./assets/images/logo192.png";
 
 const App = () => {
   const accessToken = localStorage.getItem('access_token');
@@ -12,16 +13,24 @@ const App = () => {
   return (
     <Router>
       {!accessToken ? (
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
+        <>
+          <nav className="navbar">
+            <ul className="nav-links">
+              <p className="logo"> wallet app logo</p>
+            </ul>
+          </nav>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+
+        </>
       ) : (
         <>
           <nav className="navbar">
             <ul className="nav-links">
-              <li><Link to="/dashboard">Dashboard</Link></li>
+              <p className="logo"> wallet app logo</p>
             </ul>
             <LogoutButton className="logout-button" />
           </nav>

@@ -44,6 +44,7 @@
   padding: 10px;
   background-color: #f8f8f8;
   border-bottom: 1px solid #ddd;
+  
 }
 
 .nav-links {
@@ -78,4 +79,9 @@
 
 .logout-button:focus {
   outline: none;
+}
+
+.logo {
+  width: 30px; /* Adjust the size as needed */
+  height: auto;
 }
