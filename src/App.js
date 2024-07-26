@@ -1,11 +1,10 @@
 import React from 'react';
-import { HashRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import LogoutButton from './components/LogoutButton';
 import './App.css';
-import logo from "./assets/images/logo192.png";
 
 const App = () => {
   const accessToken = localStorage.getItem('access_token');
