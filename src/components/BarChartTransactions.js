@@ -23,6 +23,7 @@ const BarChartTransactions = ({ data }) => {
     ],
   };
 
+  console.log(Math.min(-Math.abs(debit.total_debit), 0));
   const options = {
     responsive: true,
     scales: {
