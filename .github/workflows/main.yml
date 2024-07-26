@@ -30,9 +30,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build the React app
-        run:  CI=false npm run build
-        env:
-          REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
+        run: REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }} CI=false npm run build
 
       - name: Print React App Backend URL ENV
         run: echo ${{ env.REACT_APP_BACKEND_URL }}
