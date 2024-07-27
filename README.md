@@ -18,7 +18,7 @@ This project is a ReactJS application that utilizes JWT (JSON Web Tokens) for au
 
 ### Architecture
 
-The backend is built using NestJS, a popular Node.js framework. Prisma is used as an ORM to interact with the database. PostgreSQL is the chosen database for this project.
+The frontend is built using ReactJs, a popular Node.js framework.
 
 ### Deployment
 
