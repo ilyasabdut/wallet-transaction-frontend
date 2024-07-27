@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useTopUsersData = (apiUrl) => {
+const useTopUsersData = (apiUrl,isModalOpenTransfer,isModalOpenTopup) => {
   const [topUsersData, setTopUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ const useTopUsersData = (apiUrl) => {
     };
 
     fetchTopUsers();
-  }, [apiUrl]);
+  }, [apiUrl,isModalOpenTransfer,isModalOpenTopup]);
 
   return { topUsersData, loading, error };
 };

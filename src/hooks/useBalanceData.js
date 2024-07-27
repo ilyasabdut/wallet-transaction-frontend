@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useBalanceData = (apiUrl) => {
+const useBalanceData = (apiUrl,isModalOpenTransfer,isModalOpenTopup) => {
   const [balanceData, setBalanceData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const useBalanceData = (apiUrl) => {
     };
 
     fetchBalance();
-  }, [apiUrl]);
+  }, [apiUrl,isModalOpenTransfer,isModalOpenTopup]);
 
   return { balanceData, loading, error };
 };

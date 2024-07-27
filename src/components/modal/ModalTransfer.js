@@ -78,13 +78,21 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
 
       if (response.ok) {
         console.log('Form submitted successfully:', result);
-        window.location.reload();
+        setMessage(result.message);
+        setError('')
+        onRequestClose();
         //TODO use redux
       } else {
         console.error('Error submitting form:', result);
         setError(result.message || 'Error submitting form');
         setMessage('');
       }
+
+      setUsername('')
+      setCurrencyId('')
+      setNotes('')
+      setAmount('')
+      setIsUsernameValid(false);
     } catch (error) {
       console.error('Network error:', error);
       setError('Network error. Please try again');

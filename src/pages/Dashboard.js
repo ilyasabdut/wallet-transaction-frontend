@@ -13,29 +13,29 @@ import '../styles/Dashboard.css';
 
 const Dashboard = () => {
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
-    console.log(apiUrl);
-    const { balanceData, loading: balanceLoading, error: balanceError } = useBalanceData(apiUrl);
-    const { topUsersData, loading: usersLoading, error: usersError } = useTopUsersData(apiUrl);
-    const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl);
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('role');
+
+    const [isModalOpenTransfer, setIsModalOpenTransfer] = useState(false);
+    const [isModalOpenTopup, setIsModalOpenTopup] = useState(false);
+    const openModalTransfer = () => setIsModalOpenTransfer(true);
+    const closeModalTransfer = () => setIsModalOpenTransfer(false);
+    const openModalTopup = () => setIsModalOpenTopup(true);
+    const closeModalTopup = () => setIsModalOpenTopup(false);
+
+    const { balanceData, loading: balanceLoading, error: balanceError } = useBalanceData(apiUrl,isModalOpenTransfer,isModalOpenTopup);
+    const { topTransactionsData, loading: transactionLoading, error: transactionError } = useTopTransactionsData(apiUrl,isModalOpenTransfer,isModalOpenTopup);
+
+    //TODO should handle if not admin then dont load this api
+    const { topUsersData, loading: usersLoading, error: usersError } = useTopUsersData(apiUrl,isModalOpenTransfer,isModalOpenTopup);
 
     // Pagination and search state
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [search, setSearch] = useState('');
     
-    const { transactionListData, loading: listTransactionLoading, error: listTransactionError } = useTransactionListData(apiUrl, currentPage, pageSize, search);
+    const { transactionListData, loading: listTransactionLoading, error: listTransactionError } = useTransactionListData(apiUrl, currentPage, pageSize, search,isModalOpenTransfer,isModalOpenTopup);
 
-    const [isModalOpenTransfer, setIsModalOpenTransfer] = useState(false);
-    const [isModalOpenTopup, setIsModalOpenTopup] = useState(false);
-
-    const openModalTransfer = () => setIsModalOpenTransfer(true);
-    const closeModalTransfer = () => setIsModalOpenTransfer(false);
-
-    const openModalTopup = () => setIsModalOpenTopup(true);
-    const closeModalTopup = () => setIsModalOpenTopup(false);
-
-    const username = localStorage.getItem('username');
-    const role = localStorage.getItem('role');
 
     // Handling loading and error states
     if (balanceLoading || usersLoading || transactionLoading || listTransactionLoading) return <p>Loading...</p>;

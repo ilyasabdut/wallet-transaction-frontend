@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useTopTransactionsData = (apiUrl) => {
+const useTopTransactionsData = (apiUrl,isModalOpenTransfer,isModalOpenTopup) => {
   const [topTransactionsData, setTopTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,8 +26,8 @@ const useTopTransactionsData = (apiUrl) => {
       }
     };
 
-    fetchTopTransactions(); // Assuming you have a username available
-  }, [apiUrl]);
+    fetchTopTransactions();
+  }, [apiUrl,isModalOpenTransfer,isModalOpenTopup]);
 
   return { topTransactionsData, loading, error };
 };

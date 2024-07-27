@@ -12,6 +12,7 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const username = localStorage.getItem('username');
   
   if (currencyLoading) return <p>Loading...</p>;
@@ -46,12 +47,19 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
       if (response.ok) {
         console.log('Form submitted successfully:', result);
         //TODO use redux
-        window.location.reload();
+        setMessage(result.message);
+        setError('')
         onRequestClose();
       } else {
         console.error('Error submitting form:', result);
         setError(result.message || 'Error submitting form');
+        setMessage('');
       }
+
+      setCurrencyId('')
+      setAmount('')
+      setNotes('')
+
     } catch (error) {
       console.error('Network error:', error);
       setError('Network error. Please try again');
@@ -96,7 +104,7 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
           onChange={(e) => setNotes(e.target.value)}
         />
           {error && <p className="error">{error}</p>}
-          {/* {message && <p className="message">{message}</p>} */}
+          {message && <p className="message">{message}</p>}
 
           <div className="button-group">
             <button type="submit">Submit</button>

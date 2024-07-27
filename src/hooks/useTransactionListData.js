@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useTransactionListData = (apiUrl,currentPage, pageSize, search) => {
+const useTransactionListData = (apiUrl,currentPage, pageSize, search,isModalOpenTransfer,isModalOpenTopup) => {
   const [transactionListData, setTransactionListData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const useTransactionListData = (apiUrl,currentPage, pageSize, search) => {
     };
 
     fetchBalance();
-  }, [apiUrl,currentPage, pageSize, search]);
+  }, [apiUrl,currentPage, pageSize, search,isModalOpenTransfer,isModalOpenTopup]);
 
   return { transactionListData, loading, error };
 };
