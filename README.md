@@ -18,36 +18,35 @@ This project is a ReactJS application that utilizes JWT (JSON Web Tokens) for au
 
 ### Architecture
 
-The frontend is built using ReactJs, a popular Node.js framework.
+   - The frontend is built using ReactJs, a popular Node.js framework.
 
 ### Deployment
 
--Deployed on Github Pages.
+- Deployed on Github Pages.
 
-This repo uses Github Action as CI/CD. main.yaml could be found in .github/workflows/main.yaml
+  This repo uses Github Action as CI/CD. main.yaml could be found in .github/workflows/main.yaml
 
 ### Setup
 
 1. **Clone the Repository**
 
-   
+   ```
    git clone https://github.com/yourusername/wallet-transaction-frontend.git
    cd wallet-transaction-frontend
-   
+   ```
 
 2. **Install Dependencies**
-
+    ```
     npm install --legacy-peer-deps   
-
+    ```
 3. **Create a `.env` File**
 
+    ```
     REACT_APP_BACKEND_URL=http://wallet-transaction-backend-url
-
+    ```
 
 4. **Start the Application**
-
-   
+   ```
    npm start
-   
-
-The application will start and be available at http://localhost:3000.
+   ```
+   The application will start and be available at [http://localhost:3000](http://localhost:3000)
