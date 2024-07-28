@@ -50,3 +50,9 @@ This project is a ReactJS application that utilizes JWT (JSON Web Tokens) for au
    npm start
    ```
    The application will start and be available at [http://localhost:3000](http://localhost:3000)
+
+
+### Future Improvement
+- Use React Redux
+- Use cookies to store JWT instead of localStorage
+- If user role is User, then do not load all APIs
