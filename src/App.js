@@ -8,7 +8,6 @@ import './App.css';
 
 const App = () => {
   const accessToken = localStorage.getItem('access_token');
-
   return (
     <Router>
       {!accessToken ? (

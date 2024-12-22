@@ -12,7 +12,7 @@ import TransactionTable from '../components/TransactionTable';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
-    const apiUrl = process.env.REACT_APP_BACKEND_URL;
+    const apiUrl = process.env.REACT_APP_BACKEND_URL || '/api';
     const username = localStorage.getItem('username');
     const role = localStorage.getItem('role');
 

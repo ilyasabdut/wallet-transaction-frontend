@@ -10,7 +10,7 @@ const useTopUsersData = (apiUrl,isModalOpenTransfer,isModalOpenTopup) => {
       try {
         const accessToken = localStorage.getItem('access_token');
 
-        const response = await fetch(`${apiUrl}/api/transactions/top-users`, {
+        const response = await fetch(`${apiUrl}/transactions/top-users`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const useBalanceData = (apiUrl,isModalOpenTransfer,isModalOpenTopup) => {
         const accessToken = localStorage.getItem('access_token');
         const username = localStorage.getItem('username');
 
-        const response = await fetch(`${apiUrl}/api/transactions/balance?username=${username}`, {
+        const response = await fetch(`${apiUrl}/transactions/balance?username=${username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

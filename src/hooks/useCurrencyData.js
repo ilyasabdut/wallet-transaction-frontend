@@ -9,7 +9,7 @@ const useCurrencyData = (apiUrl) => {
     const fetchBalance = async () => {
       try {
         const accessToken = localStorage.getItem('access_token');
-        const response = await fetch(`${apiUrl}/api/masterdata/currencies`, {
+        const response = await fetch(`${apiUrl}/masterdata/currencies`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const useTransactionListData = (apiUrl,currentPage, pageSize, search,isModalOpen
         const accessToken = localStorage.getItem('access_token');
         const username = localStorage.getItem('username');
 
-        const response = await fetch(`${apiUrl}/api/transactions/list-transaction?username=${username}&page=${currentPage}&pageSize=${pageSize}&search=${search}`, {
+        const response = await fetch(`${apiUrl}/transactions/list-transaction?username=${username}&page=${currentPage}&pageSize=${pageSize}&search=${search}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

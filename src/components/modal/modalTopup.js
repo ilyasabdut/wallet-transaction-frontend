@@ -9,7 +9,7 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
   const [amount, setAmount] = useState('');
   const [currencyId, setCurrencyId] = useState('');
   const [notes, setNotes] = useState('');
-  const apiUrl = process.env.REACT_APP_BACKEND_URL;
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || '/api';
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -33,7 +33,7 @@ const ModalTopup = ({ isOpen, onRequestClose }) => {
 
     try {
       const accessToken = localStorage.getItem('access_token');      
-      const response = await fetch(`${apiUrl}/api/transactions/topup`, {
+      const response = await fetch(`${apiUrl}/transactions/topup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
