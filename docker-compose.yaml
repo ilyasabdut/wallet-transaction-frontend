@@ -1,0 +1,14 @@
+version: '3.9'
+
+name: wallet-transaction
+services:
+  wallet-frontend:
+    build: 
+        context: .
+        dockerfile: Dockerfile
+    platform: linux/amd64
+    container_name: wallet-frontend
+    ports:
+      - "80:80"  # Expose frontend on port 3030
+    networks:
+      - app-network
