@@ -11,7 +11,7 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
   const [amount, setAmount] = useState('');
   const [currencyId, setCurrencyId] = useState('');
   const [notes, setNotes] = useState('');
-  const apiUrl = process.env.REACT_APP_BACKEND_URL;
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || '/api';
   const { currencyData, loading: currencyLoading, error: currencyError } = useCurrencyData(apiUrl);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -24,7 +24,7 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
   const handleUsernameCheck = async () => {
     try {
       const accessToken = localStorage.getItem('access_token');      
-      const response = await fetch(`${apiUrl}/api/users/${username}`, {
+      const response = await fetch(`${apiUrl}/users/${username}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const ModalTransferForm = ({ isOpen, onRequestClose }) => {
     };
 
     try {
-      const response = await fetch(`${apiUrl}/api/transactions/transfer`, {
+      const response = await fetch(`${apiUrl}/transactions/transfer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

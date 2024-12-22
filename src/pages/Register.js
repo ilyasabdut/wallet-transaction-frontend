@@ -7,7 +7,7 @@ const RegisterPage = () => {
   const [password_confirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const apiUrl = process.env.REACT_APP_BACKEND_URL;
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || '/api';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
     try {
       // Replace this URL with your actual API endpoint
-      const response = await fetch(`${apiUrl}/api/users`, {
+      const response = await fetch(`${apiUrl}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

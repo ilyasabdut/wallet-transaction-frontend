@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log("backend", process.env.REACT_APP_BACKEND_URL);  // Use process.env
+// console.log(`backend: /api`);     // Use template literal
+
 root.render(
   <React.StrictMode>
     <App />

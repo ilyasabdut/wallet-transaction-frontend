@@ -6,7 +6,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const apiUrl = process.env.REACT_APP_BACKEND_URL;
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || '/api';
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -18,7 +18,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch(`${apiUrl}/api/auth/login`, {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
