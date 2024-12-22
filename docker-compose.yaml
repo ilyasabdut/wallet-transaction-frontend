@@ -10,5 +10,3 @@ services:
     container_name: wallet-frontend
     ports:
       - "80:80"  # Expose frontend on port 3030
-    networks:
-      - app-network
