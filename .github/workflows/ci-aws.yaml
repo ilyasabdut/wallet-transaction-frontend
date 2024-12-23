@@ -30,7 +30,7 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          echo $ENV_FILE | base64 --decode > /app/.env
+          echo $ENV_FILE | base64 --decode > .env
           echo "Created env file"
           cat .env
           ls -al
