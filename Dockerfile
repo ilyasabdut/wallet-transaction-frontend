@@ -21,8 +21,6 @@ RUN npm install
 # Copy application source code
 COPY . .
 
-RUN cat .env
-
 # Build the React application
 RUN npm run build
 

@@ -32,6 +32,7 @@ jobs:
         run: |
           echo $ENV_FILE | base64 --decode > .env
           echo "Created env file"
+          cat .env
 
       - name: Build and push
         uses: docker/build-push-action@v5
