@@ -13,8 +13,6 @@ RUN npm install
 # Copy application source code
 COPY . .
 
-COPY .env ./
-
 RUN ls -al
 
 # Debug: Check if the .env file exists
