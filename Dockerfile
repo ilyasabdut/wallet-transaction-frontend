@@ -3,15 +3,7 @@ FROM node:20-alpine AS builder
 # Set environment variables for the build
 ENV NODE_ENV=production
 
-# Set the working directory
-WORKDIR /
-
-COPY package*.json ./
-
 RUN npm install
-
-# Copy application source code
-COPY . .
 
 RUN ls -al
 
@@ -28,7 +20,7 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 
-COPY --from=builder /app/build .
+COPY --from=builder /build .
 
 # Expose the default Nginx port (80)
 EXPOSE 80
