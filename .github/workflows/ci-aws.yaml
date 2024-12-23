@@ -30,10 +30,10 @@ jobs:
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          mkdir -p /app
           echo $ENV_FILE | base64 --decode > /app/.env
           echo "Created env file"
           cat .env
+          ls -al
 
       - name: Build and push
         uses: docker/build-push-action@v5
