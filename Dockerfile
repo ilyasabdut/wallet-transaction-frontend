@@ -21,9 +21,7 @@ RUN npm install
 # Copy application source code
 COPY . .
 
-RUN echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" > .env && \
-    echo "PORT=${PORT}" >> .env && \
-    cat .env
+RUN cat .env
 
 # Build the React application
 RUN npm run build
