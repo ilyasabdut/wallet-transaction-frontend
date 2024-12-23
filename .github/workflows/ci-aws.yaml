@@ -26,6 +26,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # - name: Create env file
+      #   env:
+      #     ENV_FILE: ${{ secrets.ENV_FILE }}
+      #   run: |
+      #     echo $ENV_FILE | base64 --decode > .env
+      #     echo "Created env file"
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:

@@ -1,6 +1,6 @@
-# Stage 1: Build the React application
-FROM node:21-alpine AS builder
+FROM node:20-alpine AS builder
 
+<<<<<<< Updated upstream
 
 # Set build arguments
 ARG REACT_APP_BACKEND_URL
@@ -8,13 +8,19 @@ ARG PORT
 
 # Set environment variables
 ENV NODE_ENV production
+=======
+ARG REACT_APP_BACKEND_URL
+ARG PORT
+
+ENV NODE_ENV=production
+>>>>>>> Stashed changes
 ENV REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
 ENV PORT=${PORT}
 
 WORKDIR /app
 
-# Install dependencies
 COPY package*.json ./
+<<<<<<< Updated upstream
 
 # RUN npm cache clean --force && npm ci --only=production
 
@@ -23,12 +29,22 @@ COPY package*.json ./
 RUN npm install --omit=dev
 
 # Copy code and build
-COPY . .
+=======
 
-# Create the .env file with the environment variables
+RUN npm install
+
+>>>>>>> Stashed changes
+COPY . .
 RUN echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" > .env && \
     echo "PORT=${PORT}" >> .env && \
+<<<<<<< Updated upstream
     npm run build
+=======
+    cat .env
+
+# Build the React application
+RUN npm run build
+>>>>>>> Stashed changes
 
 # Stage 2: Create the production Docker image
 FROM builder
@@ -46,7 +62,20 @@ FROM builder
 # Serve the build using Nginx
 FROM nginx:alpine
 
+<<<<<<< Updated upstream
 # Copy build output from previous step
 COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
+=======
+WORKDIR /usr/share/nginx/html
+
+RUN rm -rf ./*
+
+COPY --from=builder /app/build .
+
+# Expose the default Nginx port (80)
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+>>>>>>> Stashed changes
