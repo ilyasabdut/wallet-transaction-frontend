@@ -1,15 +1,7 @@
 FROM node:20-alpine AS builder
 
-# Set build arguments
-ARG REACT_APP_BACKEND_URL
-ARG PORT
-
-# Set environment variables
-ENV NODE_ENV production
 # Set environment variables for the build
 ENV NODE_ENV=production
-ENV REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
-ENV PORT=${PORT}
 
 # Set the working directory
 WORKDIR /app
@@ -20,6 +12,9 @@ RUN npm install
 
 # Copy application source code
 COPY . .
+
+# Debug: Check if the .env file exists
+RUN ls -al .env && cat .env
 
 # Build the React application
 RUN npm run build
