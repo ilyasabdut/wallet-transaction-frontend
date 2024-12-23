@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 ENV NODE_ENV=production
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /
 
 COPY package*.json ./
 
